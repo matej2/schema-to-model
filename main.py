@@ -1,5 +1,5 @@
-import re
 import os
+import re
 
 import django
 
@@ -7,15 +7,17 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Test.settings")
 django.setup()
 from dr_scaffold.generators import Generator
 from schemaorg.main import Schema
-from schemaorg.utils import read_yaml, write_yaml
-
+from schemaorg.utils import read_yaml
 
 recipe = read_yaml('empty.yml')
-schema_name = 'Article'
+schema_name = 'Book'
 schema = Schema(schema_name)
 
 TYPE_MAPPINGS = {
-    'Text': 'CharField'
+    'Text': 'CharField',
+    'Number': 'IntegerField',
+    'URL': 'URLField',
+    'DateTime': 'DateTimeField',
 }
 
 def get_mapping(entity):

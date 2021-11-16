@@ -38,9 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'dr_scaffold'
-    'test',
-    'blogPost'
+    'dr_scaffold',
 ]
 
 MIDDLEWARE = [
@@ -128,5 +126,5 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORE_FOLDER = "core_dir/"
-API_FOLDER = "api_dir/"
+CORE_FOLDER = "core/"
+API_FOLDER = "api/"
