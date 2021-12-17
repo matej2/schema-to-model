@@ -1,16 +1,11 @@
-import os
 import re
 
-import django
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Test.settings")
-django.setup()
 from dr_scaffold.generators import Generator
 from schemaorg.main import Schema
 from schemaorg.utils import read_yaml
 
 recipe = read_yaml('empty.yml')
-schema_name = 'Book'
+schema_name = 'Restaurant'
 schema = Schema(schema_name)
 
 TYPE_MAPPINGS = {
