@@ -10,3 +10,4 @@ Technical details: Application will get schema information from schema.org. It w
 1. Open `main.py` and edit `schema_name`
 2. `Pipenv install`
 3. `echo "python main.py" | pipenv shell`
+4. `echo "python manage.py makemigrations && python manage.py migrate" | pipenv shell`
