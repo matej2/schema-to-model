@@ -17,7 +17,11 @@ TYPE_MAPPINGS = {
     'URL': 'URLField',
     'DateTime': 'DateTimeField',
     'Date': 'DateTimeField',
-    'Boolean': 'BooleanField'
+    'Boolean': 'BooleanField',
+    'Place': 'CharField',
+    'Brand': 'CharField',
+    'ImageObject': 'ImageField',
+    'Duration': 'DurationField'
 }
 
 def is_entity_in_mapping(entity):
