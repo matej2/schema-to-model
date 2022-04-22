@@ -42,7 +42,7 @@ def url_to_entity(url):
 #if len(sys.argv) > 0:
 #    schema_name = sys.argv[0]
 
-def get_generator_list(name, lvl=2):
+def generate_model(name, lvl=2):
     schema = Schema(schema_name)
     toadd = []
     items = schema._properties.items()
@@ -53,11 +53,11 @@ def get_generator_list(name, lvl=2):
         entity = url_to_entity(meta['rangeIncludes'])
         if entity not in TYPE_MAPPINGS && lvl > 0:
             lvl = lvl - 1
-            get_generator_list(entity, lvl)
+            generate_model(entity, lvl)
         else:
             toadd.append(f'{name}:{get_mapping(entity)}')
         
 
-add_list = get_generator_list(schema_name)
+add_list = generate_model(schema_name)
 gen = Generator('test', schema_name, add_list, False, False)
 gen.run()
