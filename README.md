@@ -11,3 +11,4 @@ Technical details: Application will get schema information from schema.org. It w
 2. `Pipenv install`
 3. `echo "python main.py" | pipenv shell`
 4. `echo "python manage.py makemigrations && python manage.py migrate" | pipenv shell`
+5. (Optional) `echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'admin')" | python manage.py shell`
