@@ -8,7 +8,7 @@ settings.configure()
 from dr_scaffold.generators import Generator
 from schemaorg.main import Schema
 
-origin_name = 'Book'
+origin_schema_name = 'Country'
 
 TYPE_MAPPINGS = {
     'Text': 'CharField',
@@ -21,8 +21,11 @@ TYPE_MAPPINGS = {
     'Place': 'CharField',
     'Brand': 'CharField',
     'ImageObject': 'ImageField',
-    'Thing': 'CharField'
+    'Thing': 'CharField',
+    'Action': 'CharField'
 }
+
+generated = []
 
 
 def get_mapping(entity):
@@ -42,7 +45,7 @@ def url_to_entity(url):
 #    schema_name = sys.argv[0]
 
 
-def generate_model(schema_name, lvl=2):
+def generate_model(schema_name, lvl=3):
     schema = Schema(schema_name)
     toadd = []
     items = schema._properties.items()
@@ -51,15 +54,17 @@ def generate_model(schema_name, lvl=2):
     for name, meta in items:
         entity = url_to_entity(meta['rangeIncludes'])
         if entity not in TYPE_MAPPINGS and lvl > 0:
-            lvl = lvl - 1
-            print(f'Go into {name}:{entity}')
-            generate_model(entity, lvl)
-            toadd.append(f'{name}_{entity}:foreignkey:{entity}')
+            print(f'Go into {name}:{entity}, lvl {lvl}')
+            if entity not in generated:
+                generated.append(entity)
+                print(f'{entity} not generated')
+                generate_model(entity, int(lvl)-1)
+            toadd.insert(0, f'{name}_{entity}:foreignkey:{entity}')
         else:
-            toadd.append(f'{name}:{get_mapping(entity)}')
+            toadd.insert(0, f'{name}:{get_mapping(entity)}')
             print(f'Append {name}')
     gen = Generator('test', schema_name, toadd, False, False)
     gen.run()
 
 
-generate_model(origin_name)
+generate_model(origin_schema_name)
