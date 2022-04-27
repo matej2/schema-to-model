@@ -10,6 +10,6 @@ Technical details: Application will get schema information from schema.org. It w
 On first run, execute `Pipenv install`
 1. Open `main.py` and edit `origin_schema_name`
 2. `echo "python main.py" | pipenv shell`
-4. Temp fix: `cp test/migrations/__init__.py test/__init__.py && sed -i -r -e 's/(max_length=[0-9]+)\)/\1, null=True, blank=True)/g' test/models.py && sed -i -r -e 's/\((null=True)\)/(\1, blank=True)/g' test/models.py`
+4. Temp fix: `cp test/migrations/__init__.py test/__init__.py && sed -i -r -e 's/(max_length=[0-9]+)\)/\1, null=True, blank=True)/g' test/models.py && sed -i -r -e 's/\((null=True)\)/(\1, blank=True)/g' test/models.py && sed -i -r -e 's/\(\)/(null=True, blank=True)/g' test/models.py`
 5. `echo "python manage.py makemigrations && python manage.py migrate" | pipenv shell`
 6. (Optional) `echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'admin')" | python manage.py shell`

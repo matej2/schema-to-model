@@ -8,7 +8,7 @@ settings.configure()
 from dr_scaffold.generators import Generator
 from schemaorg.main import Schema
 
-origin_schema_name = 'Country'
+origin_schema_name = 'MonetaryGrant'
 
 TYPE_MAPPINGS = {
     'Text': 'CharField',
@@ -39,15 +39,11 @@ def url_to_entity(url):
     ent = re.sub(r'^.+\/', '', url, flags=re.IGNORECASE)
     return re.sub(r'\W', '', ent, flags=re.IGNORECASE)
 
-#schema_name = ''
 
-#if len(sys.argv) > 0:
-#    schema_name = sys.argv[0]
-
-
-def generate_model(schema_name, lvl=3):
+def generate_model(schema_name, lvl=1):
     schema = Schema(schema_name)
     toadd = []
+    toadd_line = []
     items = schema._properties.items()
     # TODO: Replace with recursion
     # Get sub objects first
@@ -59,9 +55,9 @@ def generate_model(schema_name, lvl=3):
                 generated.append(entity)
                 print(f'{entity} not generated')
                 generate_model(entity, int(lvl)-1)
-            toadd.insert(0, f'{name}_{entity}:foreignkey:{entity}')
+            toadd.append(f'{name}_{entity}:foreignkey:{entity}')
         else:
-            toadd.insert(0, f'{name}:{get_mapping(entity)}')
+            toadd.append(f'{name}:{get_mapping(entity)}')
             print(f'Append {name}')
     gen = Generator('test', schema_name, toadd, False, False)
     gen.run()
